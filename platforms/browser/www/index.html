@@ -51,7 +51,7 @@
             var data = $("#saveregister").serialize();    
                  // alert("http://localhost/penjualan/input.php", data, function(data));
                   
-            $.post("https://tpp.rselizabeth.co.id/register.php", data, function(data){
+            $.post("http://192.168.1.3/api_daftar/register.php", data, function(data){
                 
                          
  		                   if(data.status == "sukses"){
@@ -91,9 +91,9 @@
                      
                     var data = $("#cek").serialize();  
                        //  alert("http://www.inicumatest.pe.hu/login.php", data);
-                       //   alert("https://tpp.rselizabeth.co.id/login.php" + data);
+                       //   alert("http://192.168.1.3/api_daftar/login.php" + data);
                           
-                    $.post("https://tpp.rselizabeth.co.id/login.php", data, function(data){
+                    $.post("http://192.168.1.3/api_daftar/loginperawat.php", data, function(data){
                                  
          		                   if(data.status == "ada"){
           				                 alert('Login berhasil');
@@ -131,7 +131,6 @@
     <!-- Menu-->
     <ul data-role="listview" data-inset="true" class="menu">
         <li><a href="#login" data-transition="flip"><img src="images/about.png" alt="login" class="ui-li-icon">Log In</a></li>
-        <li><a href="#register" data-transition="flip"><img src="images/blog.png" alt="register" class="ui-li-icon">Register</a></li>
 
     </ul><!--END OF: Menu -->
     

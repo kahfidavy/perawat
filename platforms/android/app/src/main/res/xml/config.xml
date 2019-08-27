@@ -42,9 +42,9 @@
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
         <param name="onload" value="true" />
     </feature>
-    <name>TPP Online</name>
+    <name>Perawat Online</name>
     <description>
-        Pendaftaran Online RS Elizabeth
+        Perawat Online RS Elizabeth
     </description>
     <author email="support@phonegap.com" href="http://phonegap.com">
         Kahfi Davy Busthomi

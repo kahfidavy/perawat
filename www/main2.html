@@ -40,8 +40,8 @@
       $(document).ready(function(){
                               
               // alert('ini jquery');               
-                $("#logout").on("click", function(){
-                    window.location="index.html";
+                $("#gd").on("click", function(){
+                    window.location="main.html#antrean";
                 });
               $("#SimpanPesanPartik").on("click", function(){
                   
@@ -80,7 +80,42 @@
              });
                   
                   
-         });//save daftar
+         });//cari antrean
+		 
+		  $("#kurangin").on("click", function(){
+                  
+            var data = "";    
+                  //alert("http://192.168.1.3/api_daftar/pesanpartik.php"+ data);
+                  //alert(data);
+            $.post("http://192.168.1.3/api_daftar/antrean_kurang.php", data, function(data){
+				no_antrean();
+             });
+                  
+                  
+         });//kurangin
+		  $("#tambahin").on("click", function(){
+                  
+            var data = "";    
+                  //alert("http://192.168.1.3/api_daftar/pesanpartik.php"+ data);
+                  //alert(data);
+            $.post("http://192.168.1.3/api_daftar/antrean_tambah.php", data, function(data){
+				no_antrean();
+             });
+                  
+                  
+         });//tambahin
+		 
+		  $("#resetdokter").on("click", function(){
+                  
+            var data = "";    
+                  //alert("http://192.168.1.3/api_daftar/pesanpartik.php"+ data);
+                  //alert(data);
+            $.post("http://192.168.1.3/api_daftar/antrean_reset.php", data, function(data){
+				no_antrean();
+             });
+                  
+                  
+         });//tambahin
 		 
 		 $("#SimpanPesanPartik1").on("click", function(){
                   
@@ -247,7 +282,19 @@
         }
 		
 
+        function no_antrean() {
+            $.post("http://192.168.1.3/api_daftar/getantrianperawat.php",function(response){
+               // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y);
+                var arr = $.parseJSON(response);
+                var trHTML = '';
+                $.each(arr, function(ix, nilai){           
+                 trHTML = ""+arr[ix].antrean
+                });
+                  $('#no_antrean').html(trHTML).listview("refresh");
                 
+            });
+        
+         }
 		<!-- $(document).ready(function(){ -->
             <!-- $.post("http://192.168.1.3/api_daftar/getrm.php",function(response){ -->
                <!-- // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y); -->
@@ -262,14 +309,24 @@
         
          <!-- }); -->
 		 $(document).ready(function(){
-            $.post("http://192.168.1.3/api_daftar/getpoliaverin.php",function(response){
+            $.post("http://192.168.1.3/api_daftar/getnamadokter.php",function(response){
                // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y);
                 var arr = $.parseJSON(response);
-                var trHTML = ' <option value="">---Pilih Bagian---</option>';
+                var trHTML = '';
                 $.each(arr, function(ix, nilai){           
-                 trHTML += '<option value="'+arr[ix].kode_bagian+'">'+arr[ix].nama_bagian+'</option>'
+                 trHTML = ""+arr[ix].nama
                 });
-                  $('#politujuan').html(trHTML).listview("refresh");
+                  $('#header').html(trHTML).listview("refresh");
+                
+            });
+			$.post("http://192.168.1.3/api_daftar/getantrianperawat.php",function(response){
+               // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y);
+                var arr = $.parseJSON(response);
+                var trHTML = '';
+                $.each(arr, function(ix, nilai){           
+                 trHTML = ""+arr[ix].antrean
+                });
+                  $('#no_antrean').html(trHTML).listview("refresh");
                 
             });
         
@@ -281,59 +338,42 @@
     </script>
 
 <body>
-    <div data-role="page" id="homepage" data-title="Homepage">
-
-<!-- Wrapper -->
-<div class="wrapper">
-    <!-- Logo -->	
-	<div class="logo">
-        <h1 style="color:white">Beranda</h1>
-    </div><!--END OF: Logo -->
-
-    <!-- Menu-->
-    <ul data-role="listview" data-inset="true" class="menu">
-        <li><a href="#antrean" data-transition="flip"><img src="images/blog.png" alt="About" class="ui-li-icon">Antrean Dokter</a></li>
-        <li><a id="logout"><img src="images/logout.png" alt="Portfolio" class="ui-li-icon" >Log out</a></li>
-    </ul><!--END OF: Menu -->
-    
-    <!-- Search-->
-    
-
-    </div><!--END OF: Wrapper -->
-    
-    <!-- Footer -->
-	<div data-role="footer" class="footer">
-        <h4>Copyright 2019 &copy; RS Elizabeth</h4><br><h4>Powered by : Kahfi Davy Busthomi, S.Kom</h4>
-	</div><!-- END OF: Footer -->
-    
-</div><!-- END OF: Homepage -->
-
-    <!-- Laporan Paging -->
-<div data-role="page" id="pendaftaran" data-title="Pendaftaran">
+<div data-role="page" id="homepage" data-title="Homepage">
 
     <!-- Header -->
-    <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a> <h4>Pendaftaran</h4>
-    </div><!-- END OF: Header -->
-    <div class="wrapper">
-    <!-- Logo -->	
-	<div class="logo">
-        <h1 style="color:white">NSM</h1>
-    </div><!--END OF: Logo -->
+    <div data-role="header" class="header ui-header ui-bar-a" role="banner">
+	   <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a><h4 id="header"></h4>
+	   
+	</div><!-- END OF: Header --><!--END OF: Slider --><!-- END OF: Header -->
 
-    <!-- Menu-->
-    <ul data-role="listview" data-inset="true" class="menu">
-        <li><a id="myBtn" data-transition="flip"><img src="images/about.png" alt="About" class="ui-li-icon">Daftar</a></li>
-        <li><a href="#listdaftar" data-transition="flip"><img src="images/blog.png" alt="Homepage" class="ui-li-icon">List Pendaftaran</a></li>
-    </ul><!--END OF: Menu -->
+
+    <!-- Wrapper -->
+    <div class="wrapper">
     
+        <!-- Slider-->
+        <div data-role="header" class="header ui-header ui-bar-a" role="banner">
+		   <a id="kurangin" data-role="button" data-icon="arrow-l" data-transition="flip">Kurangin</a> <a href="#" data-role="button"  data-icon="arrow-r" data-transition="flip" id="tambahin">Tambahin</a> <h4 id="no_antrean"></h4>
+		   
+		</div><!-- END OF: Header --><!--END OF: Slider -->
+    
+        <!-- Content -->
+        <div data-role="content" class="content ui-content" role="main">
+			<p>Hati-hati, fitur ini mengembalikan antrean ke 0 lagi. Sebaiknya bersemedi dahulu memohon pentunjuknya agar tidak salah jalan</p>
+            <a data-role="button" data-inline="true" data-theme="b" id="resetdokter">RESET ANGKA KE 0 LAGI</a>
+        </div><!-- END OF: Content -->
+        
+     
+        
+        
     </div><!--END OF: Wrapper -->
     
     <!-- Footer -->
 	<div data-role="footer" class="footer">
         <h4>Copyright 2019 &copy; RS Elizabeth</h4><br><h4>Powered by : Kahfi Davy Busthomi, S.Kom</h4>
 	</div><!-- END OF: Footer -->
+    
 </div>
+
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
@@ -376,7 +416,7 @@
 
     <!-- Header -->
     <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a> <h4>Register</h4>
+       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Prev</a> <a href="#"  onclick="location.reload();" data-icon="arrow-r" data-transition="flip">Next</a> <h4>Register</h4>
     </div><!-- END OF: Header -->
 
 	<!--Wrapper -->

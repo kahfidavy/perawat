@@ -46,10 +46,10 @@
               $("#SimpanPesanPartik").on("click", function(){
                   
             var data = $("#savedaftar").serialize();    
-                  //alert("https://tpp.rselizabeth.co.id/pesanpartik.php"+ data);
+                  //alert("http://192.168.1.3/api_daftar/pesanpartik.php"+ data);
                   //alert(data);
                   
-            $.post("https://tpp.rselizabeth.co.id/pesanpartik.php", data, function(data){
+            $.post("http://192.168.1.3/api_daftar/pesanpartik.php", data, function(data){
                          
  		                   if(data.status == "sukses"){
   				                 alert('Input Berhasil');
@@ -69,13 +69,26 @@
                   
                   
          });//save daftar
+		 
+		  $("#cari_antrian").on("click", function(){
+                  
+            var data = $("#cek_antrean").serialize();    
+                  //alert("http://192.168.1.3/api_daftar/pesanpartik.php"+ data);
+                  //alert(data);
+            $.post("http://192.168.1.3/api_daftar/set_id_dokter.php", data, function(data){
+				window.location="main2.html";
+             });
+                  
+                  
+         });//save daftar
+		 
 		 $("#SimpanPesanPartik1").on("click", function(){
                   
             var data = $("#savedaftar1").serialize();    
-                  //alert("https://tpp.rselizabeth.co.id/pesanpartik.php"+ data);
+                  //alert("http://192.168.1.3/api_daftar/pesanpartik.php"+ data);
                   alert(data);
                   
-            $.post("https://tpp.rselizabeth.co.id/pesanpartik.php", data, function(data){
+            $.post("http://192.168.1.3/api_daftar/pesanpartik.php", data, function(data){
                          
  		                   if(data.status == "sukses"){
   				                 alert('Input Berhasil');
@@ -98,10 +111,10 @@
 		 
 		 $("#simpanrm").on("click", function(){
 		 var data = $("#saverm").serialize();    
-                  //alert("https://tpp.rselizabeth.co.id/pesanpartik.php"+ data);
+                  //alert("http://192.168.1.3/api_daftar/pesanpartik.php"+ data);
                   alert(""+data);
                   
-            $.post("https://tpp.rselizabeth.co.id/tambahrm.php", data, function(data){
+            $.post("http://192.168.1.3/api_daftar/tambahrm.php", data, function(data){
                          
  		                   if(data.status == "sukses"){
   				                 alert('Input Berhasil');
@@ -125,7 +138,7 @@
     <script>
         $(document).ready(function(){
             
-            $.post("https://tpp.rselizabeth.co.id/getrm.php",function(response){
+            $.post("http://192.168.1.3/api_daftar/getrm.php",function(response){
             // alert(JSON.stringify(response));
                 var arr = $.parseJSON(response);
                 var trHTML = '';
@@ -138,7 +151,7 @@
 		 
 		 $(document).ready(function(){
             
-            $.post("https://tpp.rselizabeth.co.id/getdaftar.php",function(response){
+            $.post("http://192.168.1.3/api_daftar/getdaftar.php",function(response){
             // alert(JSON.stringify(response));
                 var arr = $.parseJSON(response);
                 var trHTML = '';
@@ -161,7 +174,7 @@
         //poli pagi partik
             $(document).ready(function(){
             
-            $.post("https://tpp.rselizabeth.co.id/getpoli.php",function(response){
+            $.post("http://192.168.1.3/api_daftar/getpoli.php",function(response){
             // alert(JSON.stringify(response));
                 var arr = $.parseJSON(response);
                 var trHTML = ' <option value="">---pilih poli---</option>';
@@ -174,8 +187,8 @@
             $(document).ready(function(){
            
         
-            $.post("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+x+"&idpoli="+y,function(response){
-               // alert("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+x+"&id_poli="+y);
+            $.post("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&idpoli="+y,function(response){
+               // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y);
                 var arr = $.parseJSON(response);
                 var trHTML = '<option value="">---pilih dokter---</option>';
                 $.each(arr, function(ix, nilai){           
@@ -196,12 +209,12 @@
         $(document).ready(function(){
            
         
-            $.post("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+x+"&idpoli="+y,function(response){
-               // alert("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+x+"&id_poli="+y);
+            $.post("http://192.168.1.3/api_daftar/getdokterpoliaverin.php?kode_bagian="+y,function(response){
+               // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y);
                 var arr = $.parseJSON(response);
                 var trHTML = ' <option value="">---pilih dokter---</option>';
                 $.each(arr, function(ix, nilai){           
-                 trHTML += '<option value="'+arr[ix].id+'">'+arr[ix].nama+'</option>'
+                 trHTML += '<option value="'+arr[ix].kode_dokter+'">'+arr[ix].nama+'</option>'
                 });
                   $('#dokter').html(trHTML).listview("refresh");
                 
@@ -209,65 +222,12 @@
         
          });
         }
-		var a;
-        function myFunction3() {
-                
-            a = document.getElementById("poli1").value;
-        //poli pagi partik
-            $(document).ready(function(){
-            
-            $.post("https://tpp.rselizabeth.co.id/getpoli.php",function(response){
-            // alert(JSON.stringify(response));
-                var arr = $.parseJSON(response);
-                var trHTML = ' <option value="">---pilih poli---</option>';
-                $.each(arr, function(ix, nilai){      
-                 trHTML += '<option value="'+arr[ix].id+'">'+arr[ix].nama+'</option>'
-                });
-                  $('#politujuan1').html(trHTML).listview("refresh");
-            });
-         });
-            $(document).ready(function(){
-           
-        
-            $.post("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+a+"&idpoli="+b,function(response){
-               // alert("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+x+"&id_poli="+y);
-                var arr = $.parseJSON(response);
-                var trHTML = '<option value="">---pilih dokter---</option>';
-                $.each(arr, function(ix, nilai){           
-                 trHTML += '<option value="'+arr[ix].id+'">'+arr[ix].nama+'</option>'
-                });
-                  $('#dokter1').html(trHTML).listview("refresh");
-                
-            });
-        
-         });
-            
-        
-        }
-        var b;
-        function myFunction4() {
-                
-            b = document.getElementById("politujuan1").value;
-        $(document).ready(function(){
-           
-        
-            $.post("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+a+"&idpoli="+b,function(response){
-               // alert("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+x+"&id_poli="+y);
-                var arr = $.parseJSON(response);
-                var trHTML = ' <option value="">---pilih dokter---</option>';
-                $.each(arr, function(ix, nilai){           
-                 trHTML += '<option value="'+arr[ix].id+'">'+arr[ix].nama+'</option>'
-                });
-                  $('#dokter1').html(trHTML).listview("refresh");
-                
-            });
-        
-         });
-        }
+		
+		
 		function delrmfunc(id) {
 			alert(""+id);
 			var data = id;
-            $.post("https://tpp.rselizabeth.co.id/hapusrm.php?id="+id, function(data){
+            $.post("http://192.168.1.3/api_daftar/hapusrm.php?id="+id, function(data){
                          
  		                   if(data.status == "sukses"){
   				                 alert('Input Berhasil');
@@ -288,15 +248,28 @@
 		
 
                 
-		$(document).ready(function(){
-            $.post("https://tpp.rselizabeth.co.id/getrm.php",function(response){
-               // alert("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+x+"&id_poli="+y);
+		<!-- $(document).ready(function(){ -->
+            <!-- $.post("http://192.168.1.3/api_daftar/getrm.php",function(response){ -->
+               <!-- // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y); -->
+                <!-- var arr = $.parseJSON(response); -->
+                <!-- var trHTML = ' <option value="">---pilih RM---</option>'; -->
+                <!-- $.each(arr, function(ix, nilai){            -->
+                 <!-- trHTML += '<option value="'+arr[ix].id+'">'+arr[ix].rm+' ------ '+arr[ix].nama+'</option>' -->
+                <!-- }); -->
+                  <!-- $('#rminput').html(trHTML).listview("refresh"); -->
+                
+            <!-- }); -->
+        
+         <!-- }); -->
+		 $(document).ready(function(){
+            $.post("http://192.168.1.3/api_daftar/getpoliaverin.php",function(response){
+               // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y);
                 var arr = $.parseJSON(response);
-                var trHTML = ' <option value="">---pilih RM---</option>';
+                var trHTML = ' <option value="">---Pilih Bagian---</option>';
                 $.each(arr, function(ix, nilai){           
-                 trHTML += '<option value="'+arr[ix].id+'">'+arr[ix].rm+' ------ '+arr[ix].nama+'</option>'
+                 trHTML += '<option value="'+arr[ix].kode_bagian+'">'+arr[ix].nama_bagian+'</option>'
                 });
-                  $('#rminput').html(trHTML).listview("refresh");
+                  $('#politujuan').html(trHTML).listview("refresh");
                 
             });
         
@@ -319,9 +292,7 @@
 
     <!-- Menu-->
     <ul data-role="listview" data-inset="true" class="menu">
-        <li><a href="#pendaftaran" data-transition="flip"><img src="images/blog.png" alt="About" class="ui-li-icon">Pendaftaran</a></li>
-        <li><a href="#rm" data-transition="flip"><img src="images/blog.png" alt="rm" class="ui-li-icon">Kelola Rekam Medis</a></li>
-        <li><a href="#profile" data-transition="flip"><img src="images/about.png" alt="Homepage" class="ui-li-icon">Profile</a></li>
+        <li><a href="#antrean" data-transition="flip"><img src="images/blog.png" alt="About" class="ui-li-icon">Antrean Dokter</a></li>
         <li><a id="logout"><img src="images/logout.png" alt="Portfolio" class="ui-li-icon" >Log out</a></li>
     </ul><!--END OF: Menu -->
     
@@ -332,7 +303,7 @@
     
     <!-- Footer -->
 	<div data-role="footer" class="footer">
-        <h4>Copyright 2018, Virosa Innovation.</h4>
+        <h4>Copyright 2019 &copy; RS Elizabeth</h4><br><h4>Powered by : Kahfi Davy Busthomi, S.Kom</h4>
 	</div><!-- END OF: Footer -->
     
 </div><!-- END OF: Homepage -->
@@ -342,7 +313,7 @@
 
     <!-- Header -->
     <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <h4>Pendaftaran</h4>
+       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a> <h4>Pendaftaran</h4>
     </div><!-- END OF: Header -->
     <div class="wrapper">
     <!-- Logo -->	
@@ -360,7 +331,7 @@
     
     <!-- Footer -->
 	<div data-role="footer" class="footer">
-        <h4>Copyright 2018, Virosa Innovation.</h4>
+        <h4>Copyright 2019 &copy; RS Elizabeth</h4><br><h4>Powered by : Kahfi Davy Busthomi, S.Kom</h4>
 	</div><!-- END OF: Footer -->
 </div>
 <div id="myModal" class="modal">
@@ -368,7 +339,7 @@
   <!-- Modal content -->
   <div class="modal-content">
     <p>Apakah pasien telah memiliki nomor Rekam Medis (RM) ?</p>
-    <button><a href="#daftarlupa" class="close" data-transition="flip">Punya Namun Lupa Nomor Rekam Medis</a></button>
+    <button><a href="#" class="close">Punya Namun Lupa Nomor Rekam Medis</a></button>
     <button><a href="#daftar" class="close1" data-transition="flip">Punya</a></button>
     <button><a href="#tidakpunya" class="close2" data-transition="flip">Tidak Punya</a></button>
   </div>
@@ -379,7 +350,7 @@
 
     <!-- Header -->
     <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <h4>RM</h4>
+       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a> <h4>RM</h4>
     </div><!-- END OF: Header -->
     <div class="wrapper">
     <!-- Logo -->	
@@ -397,7 +368,7 @@
     
     <!-- Footer -->
 	<div data-role="footer" class="footer">
-        <h4>Copyright 2018, Virosa Innovation.</h4>
+        <h4>Copyright 2019 &copy; RS Elizabeth</h4><br><h4>Powered by : Kahfi Davy Busthomi, S.Kom</h4>
 	</div><!-- END OF: Footer -->
 </div>  <!-- END OF: RM-->  
 <!-- Tambah RM -->
@@ -405,7 +376,7 @@
 
     <!-- Header -->
     <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <h4>Register</h4>
+       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a> <h4>Register</h4>
     </div><!-- END OF: Header -->
 
 	<!--Wrapper -->
@@ -452,7 +423,7 @@
 
     <!-- Footer -->
 	<div data-role="footer" class="footer">
-        <h4>Copyright 2018, Virosa Innovation.</h4>
+        <h4>Copyright 2019 &copy; RS Elizabeth</h4><br><h4>Powered by : Kahfi Davy Busthomi, S.Kom</h4>
 	</div><!-- END OF: Footer -->
     
 </div><!-- END OF: Tambah RM -->
@@ -461,7 +432,7 @@
 
     <!-- Header -->
     <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <h4>Profile</h4>
+       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a> <h4>Profile</h4>
     </div><!-- END OF: Header -->
 
 	<!--Wrapper -->
@@ -472,8 +443,8 @@
 			<form id="saveprofile" name="saveprofile" >
 			<script>
 			$(document).ready(function(){
-				$.post("https://tpp.rselizabeth.co.id/getprofile.php",function(response){
-				   // alert("https://tpp.rselizabeth.co.id/getdokterpoli.php?poli="+x+"&id_poli="+y);
+				$.post("http://192.168.1.3/api_daftar/getprofile.php",function(response){
+				   // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y);
 					var arr = $.parseJSON(response);
 					var trHTML = '';
 					$.each(arr, function(ix, nilai){  				
@@ -502,218 +473,93 @@
 
     <!-- Footer -->
 	<div data-role="footer" class="footer">
-        <h4>Copyright 2018, Virosa Innovation.</h4>
+        <h4>Copyright 2019 &copy; RS Elizabeth</h4><br><h4>Powered by : Kahfi Davy Busthomi, S.Kom</h4>
+	</div><!-- END OF: Footer -->
+    
+</div><!-- END OF: profile -->
+<!-- Antrean -->
+<div data-role="page" id="antrean" data-title="About">
+
+    <!-- Header -->
+    <div data-role="header" class="header">
+       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a> <h4>Antrean</h4>
+    </div><!-- END OF: Header -->
+
+	<!--Wrapper -->
+	<div class="wrapper">
+
+        
+        <div data-role="content" class="content" data-theme="a" style="margin-top:25px">
+			<form id="cek_antrean" name="cek_antrean" >
+			<label for="politujuan1">Poli Tujuan :</label>
+			<select name="politujuan1" id="politujuan1" onchange="myFunction3()">
+             </select>
+			 
+			<br />
+			<label for="dokter1">Dokter :</label>
+			<select name="dokter1" id="dokter1">
+			</select>
+			<script>
+			$(document).ready(function(){
+				$.post("http://192.168.1.3/api_daftar/getpoliaverin.php",function(response){
+				   // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y);
+					var arr = $.parseJSON(response);
+					var trHTML = ' <option value="">---Pilih Bagian---</option>';
+					$.each(arr, function(ix, nilai){           
+					 trHTML += '<option value="'+arr[ix].kode_bagian+'">'+arr[ix].nama_bagian+'</option>'
+					});
+					  $('#politujuan1').html(trHTML).listview("refresh");
+					
+				});
+			
+			 });
+			 var xz;
+			 function myFunction3() {
+                
+					xz = document.getElementById("politujuan1").value;
+				$(document).ready(function(){
+				   
+				
+					$.post("http://192.168.1.3/api_daftar/getdokterpoliaverin.php?kode_bagian="+xz,function(response){
+					   // alert("http://192.168.1.3/api_daftar/getdokterpoli.php?poli="+x+"&id_poli="+y);
+						var arr = $.parseJSON(response);
+						var trHTML = ' <option value="">---pilih dokter---</option>';
+						$.each(arr, function(ix, nilai){           
+						 trHTML += '<option value="'+arr[ix].kode_dokter+'">'+arr[ix].nama+'</option>'
+						});
+						  $('#dokter1').html(trHTML).listview("refresh");
+						
+					});
+				
+				 });
+				}
+			</script>
+			<br />
+			<br>
+			<a data-role="button" data-inline="true" data-theme="b" id="cari_antrian">cari</a>
+             <!--Wrapper   <a href="#thankyou" data-rel="dialog" data-transition="pop" data-role="button" data-inline="true" data-theme="b">Send</a>       -->
+			</form>  
+        </div> 		
+  
+    </div><!-- END OF: Wrapper -->
+
+    <!-- Footer -->
+	<div data-role="footer" class="footer">
+        <h4>Copyright 2019 &copy; RS Elizabeth</h4><br><h4>Powered by : Kahfi Davy Busthomi, S.Kom</h4>
 	</div><!-- END OF: Footer -->
     
 </div><!-- END OF: profile -->
 
 
 <!-- REGISTER -->
-<div data-role="page" id="daftar" data-title="About">
-
-    <!-- Header -->
-    <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <h4>Daftar Umum</h4>
-    </div><!-- END OF: Header -->
-
-	<!--Wrapper -->
-	<div class="wrapper">
-
-        
-        <div data-role="content" class="content" data-theme="a" style="margin-top:25px">
-			<form id="savedaftar">
-				<label for="rminput">Rekam Medis (RM) :</label>
-				<select name="rminput" id="rminput">
-                
-                </select>
-				<br />
-                <label for="poli">Poli :</label>
-                <select name="poli" id="poli" onchange="myFunction()">
-                <option value="">---pilih poli---</option>
-                <option value="pagi">Pagi</option>
-                <option value="sore">Sore</option>
-                </select>
-                <br />
-				
-				<label for="politujuan">Poli Tujuan :</label>
-                <select name="politujuan" id="politujuan" onchange="myFunction2()">
-                
-                </select>
-                <br />
-                <label for="dokter">Dokter :</label>
-                <select name="dokter" id="dokter">
-                
-                </select>
-                <br />
-                <label for="tanggal">Tanggal :</label>
-                <input id="tanggal" name="tanggal" type="date">
-                <br />
-                <label for="catatan">Catatan untuk petugas :</label>
-                <textarea id="catatan" name="catatan"></textarea>
-                <br />
-               
-                
-                 <div>
-            <label for="fotoktp">Foto Rujukan (Jika BPJS) :</label><br>
-            <img src="images/EmptyBox-Phone.png" id="fotoktp" height="180" width="140" />
-            
-        </div>
-                 
-                
-                <br />
-                <input type="hidden" name="gambar" id="gambar" value="" />
-        <a class="button" data-inline="true" id="buttonid" data-theme="b" onclick="takepicture()">Take Picture</a>
-                <br />
-                 <br />
-                 <br />
-                
-             <!--Wrapper   <a href="#thankyou" data-rel="dialog" data-transition="pop" data-role="button" data-inline="true" data-theme="b">Send</a>       -->     
-				<a data-role="button" data-inline="true" data-theme="b" id="SimpanPesanPartik">Simpan</a>
-                
-			</form>  
-        </div> 		
-  
-    </div><!-- END OF: Wrapper -->
-
-    <!-- Footer -->
-	<div data-role="footer" class="footer">
-        <h4>Copyright 2018, Virosa Innovation.</h4>
-	</div><!-- END OF: Footer -->
-    
-</div><!-- END OF: About -->
-<!-- REGISTER -->
-<div data-role="page" id="daftarlupa" data-title="About">
-
-    <!-- Header -->
-    <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <h4>Daftar Umum</h4>
-    </div><!-- END OF: Header -->
-
-	<!--Wrapper -->
-	<div class="wrapper">
-
-        
-        <div data-role="content" class="content" data-theme="a" style="margin-top:25px">
-			<form id="savedaftar1">
-				<label for="nama">Nama Lengkap :</label>
-                <input id="nama" name="nama" type="text">
-				<br />
-				<label for="tanggallahir">Tanggal Lahir :</label>
-                <input id="tanggallahir" name="tanggallahir" type="date">
-				<br />
-				<label for="kelamin">Jenis Kelamin :</label>
-                <select name="kelamin" id="kelamin">
-                <option value="laki-laki">Laki-laki</option>
-                <option value="perempuan">Perempuan</option>
-                </select>
-				<br />
-				<label for="alamat">Alamat Lengkap :</label>
-                <textarea name="alamat" id="alamat"></textarea>
-				<br />
-                <label for="poli1">Poli :</label>
-                <select name="poli1" id="poli1" onchange="myFunction3()">
-                <option value="">---pilih poli---</option>
-                <option value="pagi">Pagi</option>
-                <option value="sore">Sore</option>
-                </select>
-                <br />
-				
-				<label for="politujuan1">Poli Tujuan :</label>
-                <select name="politujuan1" id="politujuan1" onchange="myFunction4()">
-                
-                </select>
-                <br />
-                <label for="dokter1">Dokter :</label>
-                <select name="dokter1" id="dokter1">
-                
-                </select>
-                <br />
-                <label for="tanggal">Tanggal :</label>
-                <input id="tanggal" name="tanggal" type="date">
-                <br />
-                <label for="catatan">Catatan untuk petugas :</label>
-                <textarea id="catatan" name="catatan"></textarea>
-                <br />
-               
-                
-                 <div>
-            <label for="fotoktp">Foto Rujukan (Jika BPJS) :</label><br>
-            <img src="images/EmptyBox-Phone.png" id="fotoktp" height="180" width="140" />
-            
-        </div>
-                 
-                
-                <br />
-                <input type="hidden" name="gambar" id="gambar" value="" />
-        <a class="button" data-inline="true" id="buttonid" data-theme="b" onclick="takepicture()">Take Picture</a>
-                <br />
-                 <br />
-                 <br />
-                
-             <!--Wrapper   <a href="#thankyou" data-rel="dialog" data-transition="pop" data-role="button" data-inline="true" data-theme="b">Send</a>       -->     
-				<a data-role="button" data-inline="true" data-theme="b" id="SimpanPesanPartik1">Simpan</a>
-                
-			</form>  
-        </div> 		
-  
-    </div><!-- END OF: Wrapper -->
-
-    <!-- Footer -->
-	<div data-role="footer" class="footer">
-        <h4>Copyright 2018, Virosa Innovation.</h4>
-	</div><!-- END OF: Footer -->
-    
-</div><!-- END OF: About -->
 
 
-<!-- BLOG -->
-<div data-role="page" id="listrm" data-title="Blog">
-
-    <!-- Header -->
-    <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <h4>List RM</h4>
-    </div><!-- END OF: Header -->
-    
-    <div class="wrapper">
-        <!-- Content -->
-        <div data-role="content" class="content">
-			<div class="table-title">
-				<h3>List RM</h3>
-			</div>
-            <div style="overflow-x:auto;">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th class="text-left">RM</th>
-                        <th class="text-left">Nama</th>
-						<th class="text-left">Tanggal Lahir</th>
-						<th class="text-left">Alamat</th>
-						<th class="text-left">Jenis Kelamin</th>
-						<th class="text-left">Edit</th>
-					</tr>
-				</thead>
-				<tbody id="lrm">
-<!--
-					<tr>
-						<td class="text-left">.</td>
-						<td class="text-left">.</td>
-						<td class="text-left">.</td>
-						<td class="text-left">.</td>
-					</tr>
--->
-				</tbody>
-			</table>
-            </div>
-        </div><!-- END OF: Header -->
-    
-	</div><!-- END OF: Blog -->
-</div><!-- END OF: Post -->
 
 <!-- List Pendaftaran -->
 <div data-role="page" id="listdaftar" data-title="Blog">
     <!-- Header -->
     <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <h4>List Daftar</h4>
+       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a> <h4>List Daftar</h4>
     </div><!-- END OF: Header -->
     
     <div class="wrapper">
@@ -758,7 +604,7 @@
 
     <!-- Header -->
     <div data-role="header" class="header">
-       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <h4>Portfolio</h4>
+       <a href="#" data-rel="back" data-icon="arrow-l" data-transition="flip">Back</a> <a href="#"  onclick="location.reload();" data-icon="refresh" data-transition="flip">Refresh</a> <h4>Portfolio</h4>
     </div><!-- END OF: Header -->
 
 	<!-- Portfolio -->
@@ -787,7 +633,7 @@
 
     <!-- Footer -->
 	<div data-role="footer" class="footer">
-        <h4>Copyright 2018, Virosa Innovation.</h4>
+        <h4>Copyright 2019 &copy; RS Elizabeth</h4><br><h4>Powered by : Kahfi Davy Busthomi, S.Kom</h4>
 	</div><!-- END OF: Footer -->
     
 </div><!-- END OF: Portfolio -->
@@ -852,6 +698,7 @@ btn.onclick = function() {
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
+	window.open('https://wa.me/6282331336851?text=Hallo RS Elizabeth, Saya ingin menanyakan Nomor Rekam Medis Saya', '_system'); 
     modal.style.display = "none";
 }
 span1.onclick = function() {

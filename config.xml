@@ -6,10 +6,10 @@
         id        = "com.phonegap.tpponline"
         version   = "1.0.0">
 
-    <name>TPP Online</name>
+    <name>Perawat Online</name>
 
     <description>
-        Pendaftaran Online RS Elizabeth
+        Perawat Online RS Elizabeth
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">
